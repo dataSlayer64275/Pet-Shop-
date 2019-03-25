@@ -55,7 +55,7 @@ def remove_pet_by_name(petshop,name)
 end
 
 def add_pet_to_stock(petshop, newpet)
-  petshop[:pets][6] = newpet
+  petshop[:pets] << newpet
   return petshop[:pets].length
 end
 
@@ -73,7 +73,8 @@ def customer_pet_count(customer_position)
 end
 
 def add_pet_to_customer(customer, newpet)
-  customer[:pets][0] = newpet
+  # customer[:pets][0] = newpet
+  customer[:pets] << newpet
   return customer[:pets]
 end
 
@@ -88,4 +89,16 @@ def customer_can_afford_pet(customer, newpet)
   end
 end
 
-# def sell_pet_to_customer(petshop, name)
+def sell_pet_to_customer(petshop, pet, customer)
+if petshop[:pets].include?(pet) && customer[:cash] >= pet[:price]
+  customer[:pets].push(pet)
+  customer[:cash] -= pet[:price]
+  petshop[:admin][:total_cash] += pet[:price]
+  return increase_pets_sold(petshop, 1)
+  return customer_pet_count(customer)
+  return pets_sold(petshop)
+  return customer_cash(customer)
+  return total_cash(petshop)
+else
+end
+end
